@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#f4f3ef">
+	<title>Sign in</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			color-scheme: light;
+			--ink: #202821;
+			--muted: #747a72;
+			--paper: #fbfaf7;
+			--line: #e5e5dc;
+			--green: #315d45;
+			--green-dark: #244735;
+			--sage: #dce7d9;   
+		}
+
+		* { box-sizing: border-box; }
+
+		body {
+			min-width: 320px;
+			min-height: 100vh;
+			margin: 0;
+			display: grid;
+			place-items: center;
+			padding: 32px 20px;
+			color: var(--ink);
+			background-color: #f4f3ef;
+			background-image: radial-gradient(#d9d9ce 0.7px, transparent 0.7px);
+			background-size: 18px 18px;
+			font-family: "DM Sans", sans-serif;
+		}
+
+		.login-shell {
+			width: min(100%, 960px);
+			min-height: 590px;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			overflow: hidden;
+			background: var(--paper);
+			border: 1px solid rgba(32, 40, 33, 0.08);
+			border-radius: 8px;
+			box-shadow: 0 24px 70px rgba(41, 48, 39, 0.12);
+			animation: arrive 500ms ease-out both;
+		}
+
+		.welcome-panel {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			min-height: 590px;
+			overflow: hidden;
+			padding: 38px 42px;
+			color: #f8f7f0;
+			background: #315d45;
+			isolation: isolate;
+		}
+
+		.welcome-panel::before,
+		.welcome-panel::after {
+			position: absolute;
+			z-index: -1;
+			content: "";
+			border: 1px solid rgba(245, 246, 228, 0.2);
+			border-radius: 50%;
+		}
+
+		.welcome-panel::before {
+			width: 420px;
+			height: 420px;
+			right: -190px;
+			top: 80px;
+			box-shadow: 0 0 0 35px rgba(245, 246, 228, 0.035), 0 0 0 72px rgba(245, 246, 228, 0.035);
+		}
+
+		.welcome-panel::after {
+			width: 250px;
+			height: 250px;
+			left: -160px;
+			bottom: -110px;
+			box-shadow: 0 0 0 30px rgba(245, 246, 228, 0.04), 0 0 0 62px rgba(245, 246, 228, 0.04);
+		}
+
+		.brand {
+			display: inline-flex;
+			align-items: center;
+			gap: 11px;
+			width: fit-content;
+			color: inherit;
+			font-size: 15px;
+			font-weight: 700;
+			letter-spacing: 0.3px;
+			text-decoration: none;
+		}
+
+		.brand-mark {
+			display: grid;
+			width: 34px;
+			height: 34px;
+			place-items: center;
+			border: 1px solid rgba(255, 255, 255, 0.55);
+			border-radius: 50%;
+			font-family: "DM Serif Display", serif;
+			font-size: 19px;
+			font-weight: 400;
+		}
+
+		.welcome-copy { max-width: 340px; margin: auto 0; padding: 45px 0; }
+
+		.eyebrow {
+			margin: 0 0 18px;
+			color: #c7d5be;
+			font-size: 11px;
+			font-weight: 700;
+			letter-spacing: 1.7px;
+			text-transform: uppercase;
+		}
+
+		.welcome-copy h1 {
+			max-width: 320px;
+			margin: 0;
+			font-family: "DM Serif Display", Georgia, serif;
+			font-size: 46px;
+			font-weight: 400;
+			line-height: 1.08;
+		}
+
+		.welcome-copy p:last-child {
+			max-width: 280px;
+			margin: 20px 0 0;
+			color: #d4dfd0;
+			font-size: 14px;
+			line-height: 1.7;
+		}
+
+		.panel-note { margin: 0; color: #d4dfd0; font-size: 12px; }
+
+		.form-panel {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 56px clamp(28px, 6vw, 72px);
+		}
+
+		.form-content { width: 100%; max-width: 340px; }
+
+		.form-content h2 {
+			margin: 0;
+			font-family: "DM Serif Display", Georgia, serif;
+			font-size: 34px;
+			font-weight: 400;
+			line-height: 1.2;
+		}
+
+		.form-intro { margin: 9px 0 32px; color: var(--muted); font-size: 14px; }
+
+		.field { margin-bottom: 20px; }
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+			font-size: 12px;
+			font-weight: 700;
+		}
+
+		input[type="email"], input[type="password"], input[type="text"] {
+			width: 100%;
+			height: 48px;
+			padding: 0 14px;
+			border: 1px solid var(--line);
+			border-radius: 4px;
+			outline: none;
+			background: #fff;
+			color: var(--ink);
+			font: inherit;
+			font-size: 14px;
+			transition: border-color 150ms ease, box-shadow 150ms ease;
+		}
+
+		input::placeholder { color: #a4a69f; }
+		input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
+			border-color: var(--green);
+			box-shadow: 0 0 0 3px rgba(49, 93, 69, 0.12);
+		}
+
+		.password-wrap { position: relative; }
+		.password-wrap input { padding-right: 70px; }
+
+		.show-password {
+			position: absolute;
+			top: 50%;
+			right: 12px;
+			padding: 5px;
+			transform: translateY(-50%);
+			border: 0;
+			background: transparent;
+			color: var(--green);
+			cursor: pointer;
+			font: inherit;
+			font-size: 11px;
+			font-weight: 700;
+		}
+
+		.form-options {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 12px;
+			margin: 4px 0 25px;
+			font-size: 12px;
+		}
+
+		.remember { display: inline-flex; align-items: center; gap: 8px; color: #575f56; }
+		.remember input { width: 15px; height: 15px; margin: 0; accent-color: var(--green); }
+		a { color: var(--green); font-weight: 600; text-decoration: none; }
+		a:hover { text-decoration: underline; }
+
+		.submit-button {
+			width: 100%;
+			height: 48px;
+			border: 0;
+			border-radius: 4px;
+			background: var(--green);
+			color: white;
+			cursor: pointer;
+			font: inherit;
+			font-size: 14px;
+			font-weight: 700;
+			transition: background-color 150ms ease, transform 150ms ease;
+		}
+
+		.submit-button:hover { background: var(--green-dark); }
+		.submit-button:active { transform: translateY(1px); }
+
+		.signup-note { margin: 24px 0 0; color: var(--muted); font-size: 12px; text-align: center; }
+
+		@keyframes arrive {
+			from { opacity: 0; transform: translateY(10px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		@media (max-width: 680px) {
+			body { padding: 18px 14px; }
+			.login-shell { max-width: 440px; min-height: 0; grid-template-columns: 1fr; }
+			.welcome-panel { min-height: 190px; padding: 24px 28px; }
+			.welcome-copy { padding: 32px 0 10px; }
+			.welcome-copy h1 { max-width: 300px; font-size: 34px; }
+			.welcome-copy p:last-child, .panel-note { display: none; }
+			.eyebrow { margin-bottom: 9px; }
+			.form-panel { padding: 36px 28px 40px; }
+			.form-intro { margin-bottom: 26px; }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			*, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+		}
+	</style>
+</head>
+<body>
+	<main class="login-shell">
+		<section class="welcome-panel" aria-label="Welcome">
+			<a class="brand" href="#" aria-label="Fieldnote home">
+				<span class="brand-mark" aria-hidden="true">f</span>
+				<span>FIELDNOTE</span>
+			</a>
+			<div class="welcome-copy">
+				<p class="eyebrow">A little space to focus</p>
+				<h1>Good to have you back.</h1>
+				<p>Sign in to pick up right where you left off.</p>
+			</div>
+			<p class="panel-note">Make room for what matters.</p>
+		</section>
+
+		<section class="form-panel" aria-labelledby="login-title">
+			<div class="form-content">
+				<h2 id="login-title">Welcome back</h2>
+				<p class="form-intro">Enter your details to sign in.</p>
+
+				<form>
+					<div class="field">
+						<label for="email">Email address</label>
+						<input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+					</div>
+
+					<div class="field">
+						<label for="password">Password</label>
+						<div class="password-wrap">
+							<input id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+							<button class="show-password" type="button" aria-controls="password" aria-pressed="false">Show</button>
+						</div>
+					</div>
+
+					<div class="form-options">
+						<label class="remember" for="remember">
+							<input id="remember" name="remember" type="checkbox">
+							<span>Remember me</span>
+						</label>
+						<a href="#forgot-password">Forgot password?</a>
+					</div>
+
+					<button class="submit-button" type="submit">Sign in</button>
+				</form>
+
+				<p class="signup-note">New here? <a href="#sign-up">Create an account</a></p>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		const passwordInput = document.querySelector("#password");
+		const visibilityButton = document.querySelector(".show-password");
+
+		visibilityButton.addEventListener("click", () => {
+			const isVisible = passwordInput.type === "text";
+			passwordInput.type = isVisible ? "password" : "text";
+			visibilityButton.textContent = isVisible ? "Show" : "Hide";
+			visibilityButton.setAttribute("aria-pressed", String(!isVisible));
+		});
+	</script>
+</body>
+</html>
